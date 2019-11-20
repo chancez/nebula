@@ -81,6 +81,9 @@ bench-cpu-long:
 	go test -bench=. -benchtime=60s -cpuprofile=cpu.pprof
 	go tool pprof go-audit.test cpu.pprof
 
+docker:
+	docker build -t quay.io/nebula/nebula .
+
 proto: nebula.pb.go cert/cert.pb.go
 
 nebula.pb.go: nebula.proto .FORCE
@@ -92,5 +95,5 @@ cert/cert.pb.go: cert/cert.proto .FORCE
 	$(MAKE) -C cert cert.pb.go
 
 .FORCE:
-.PHONY: test test-cov-html bench bench-cpu bench-cpu-long bin proto release
+.PHONY: test test-cov-html bench bench-cpu bench-cpu-long bin docker proto release
 .DEFAULT_GOAL := bin
